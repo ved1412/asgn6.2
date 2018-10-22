@@ -1,0 +1,30 @@
+1. Import the Titanic Dataset from the link Titanic Data Set.
+Perform the following:
+a. Is there any difference in fares by different class of tickets?
+Note - Show a boxplot displaying the distribution of fares by class
+fare <- titanic$fare
+length(fare); index<-which(!is.na(fare)); fare<-fare[index]; length(fare)
+hist(fare,50,col="blue",freq=FALSE, main="Ticket Fare")
+ 
+summary(fare)
+qqnorm(fare)
+qqline(fare) 
+
+b. Is there any association with Passenger class and gender?
+Note – Show a stacked bar chart
+p <- qplot(x=age.nna$sex, y=age.nna$age, data=age.nna, 
+           geom=c("boxplot", "jitter"), main="Age vs. Gender", xlab="Gender", 
+           ylab="Age") + coord_flip()
+p + geom_hline(yintercept = 51.5, color="blue", label="Life Exp. (M)") + 
+    geom_hline(yintercept = 55.9, colour="red", label="Life Exp. (F)")
+ 
+length(which(titanic$age < 18))
+titanic$age_group <- "adult"
+titanic$age_group[titanic$age < 18] <- "child"
+age_group.survived <- table(titanic$age_group, titanic$survived); age_group.survived
+age_group.survived.prop <- prop.table(age_group.survived, 1); age_group.survived.prop
+adults.survived <- age_group.survived.prop[3]
+children.survived <- age_group.survived.prop[4]
+observed <-  children.survived / adults.survived; observed
+
+
